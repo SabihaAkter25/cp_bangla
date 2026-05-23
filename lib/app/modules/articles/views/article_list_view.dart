@@ -21,11 +21,26 @@ class ArticleListView extends GetView<ArticleController> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 0,
+          title: const Text('Articles'),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF1E1E2C),
+                  const Color(0xFFBB86FC).withOpacity(0.1),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
           bottom: const TabBar(
+            indicatorColor: Color(0xFFBB86FC),
+            labelColor: Color(0xFFBB86FC),
+            unselectedLabelColor: Colors.grey,
             tabs: [
               Tab(text: 'All'),
-              Tab(text: 'Bookmarks'),
+              Tab(text: 'Saved'),
               Tab(text: 'History'),
             ],
           ),
@@ -84,15 +99,60 @@ class ArticleListView extends GetView<ArticleController> {
               return Center(child: Text(isBookmark ? 'No bookmarks yet' : 'No articles found'));
             }
             return ListView.builder(
+              padding: const EdgeInsets.all(16),
               itemCount: articles.length,
               itemBuilder: (context, index) {
                 final article = articles[index];
-                return ListTile(
-                  title: Text(article.title),
-                  subtitle: Text(article.excerpt ?? ''),
-                  onTap: () => Get.toNamed(
-                    Routes.ARTICLE_DETAILS,
-                    arguments: article,
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  clipBehavior: Clip.antiAlias,
+                  child: InkWell(
+                    onTap: () => Get.toNamed(
+                      Routes.ARTICLE_DETAILS,
+                      arguments: article,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  article.title,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          if (article.excerpt != null)
+                            Text(
+                              article.excerpt!,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                            ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Icon(Icons.calendar_today, size: 14, color: Theme.of(context).primaryColor),
+                              const SizedBox(width: 4),
+                              Text(
+                                article.createdAt.toLocal().toString().split(' ')[0],
+                                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
