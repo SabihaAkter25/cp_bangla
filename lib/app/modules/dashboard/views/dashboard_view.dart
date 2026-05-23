@@ -12,45 +12,61 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CP Bangla'),
-        centerTitle: true,
-      ),
-      body: Obx(() => IndexedStack(
-            index: controller.currentIndex.value,
-            children: const [
-              ArticleListView(),
-              ProblemListView(),
-              TopicListView(),
-              ProfileView(),
-            ],
+      body: Obx(() => SafeArea(
+            child: IndexedStack(
+              index: controller.currentIndex.value,
+              children: const [
+                ArticleListView(),
+                ProblemListView(),
+                TopicListView(),
+                ProfileView(),
+              ],
+            ),
           )),
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-            currentIndex: controller.currentIndex.value,
-            onTap: controller.changePage,
-            type: BottomNavigationBarType.fixed,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.article_outlined),
-                activeIcon: Icon(Icons.article),
-                label: 'Articles',
+      bottomNavigationBar: Obx(() => Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF1E1E2C),
+                  const Color(0xFFBB86FC).withOpacity(0.1),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.code_outlined),
-                activeIcon: Icon(Icons.code),
-                label: 'Problems',
+              border: Border(
+                top: BorderSide(color: Colors.white.withOpacity(0.05), width: 1),
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.topic_outlined),
-                activeIcon: Icon(Icons.topic),
-                label: 'Topics',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                activeIcon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              currentIndex: controller.currentIndex.value,
+              onTap: controller.changePage,
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.article_outlined),
+                  activeIcon: Icon(Icons.article),
+                  label: 'Articles',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.code_outlined),
+                  activeIcon: Icon(Icons.code),
+                  label: 'Problems',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.grid_view_outlined),
+                  activeIcon: Icon(Icons.grid_view_rounded),
+                  label: 'Topics',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline),
+                  activeIcon: Icon(Icons.person),
+                  label: 'Profile',
+                ),
+              ],
+            ),
           )),
     );
   }
