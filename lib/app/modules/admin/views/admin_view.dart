@@ -12,6 +12,18 @@ class AdminView extends GetView<AdminController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                const Color(0xFF1E1E2C),
+                const Color(0xFFBB86FC).withOpacity(0.1),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.dashboard),
