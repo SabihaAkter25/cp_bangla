@@ -60,9 +60,7 @@ class ProblemListView extends GetView<ProblemController> {
                             ),
                           ),
 
-                          value: controller.selectedTopicId.value.isEmpty
-                              ? null
-                              : controller.selectedTopicId.value,
+                          value: controller.selectedTopicId.value,
 
                           items: [
 
@@ -106,9 +104,7 @@ class ProblemListView extends GetView<ProblemController> {
                             ),
                           ),
 
-                          value: controller.selectedDifficulty.value.isEmpty
-                              ? null
-                              : controller.selectedDifficulty.value,
+                          value: controller.selectedDifficulty.value,
 
                           items: const [
 

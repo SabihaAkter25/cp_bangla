@@ -38,18 +38,19 @@ class ProblemController extends GetxController {
   void _filterProblems() {
     var result = problems.toList();
 
-    if (searchQuery.isNotEmpty) {
+    if (searchQuery.value.isNotEmpty) {
       result = result.where((problem) =>
           problem.title.toLowerCase().contains(searchQuery.value.toLowerCase()) ||
           (problem.statement?.toLowerCase().contains(searchQuery.value.toLowerCase()) ?? false)).toList();
     }
 
-    if (selectedTopicId.isNotEmpty) {
+    if (selectedTopicId.value.isNotEmpty) {
       result = result.where((problem) => problem.topicId == selectedTopicId.value).toList();
     }
 
-    if (selectedDifficulty.isNotEmpty) {
-      result = result.where((problem) => problem.difficulty == selectedDifficulty.value).toList();
+    if (selectedDifficulty.value.isNotEmpty) {
+      result = result.where((problem) => 
+          problem.difficulty.trim().toLowerCase() == selectedDifficulty.value.trim().toLowerCase()).toList();
     }
 
     filteredProblems.assignAll(result);
