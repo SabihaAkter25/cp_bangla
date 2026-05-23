@@ -14,6 +14,18 @@ class ProblemListView extends GetView<ProblemController> {
       appBar: AppBar(
         title: const Text('Problems'),
         centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                const Color(0xFF1E1E2C),
+                const Color(0xFFBB86FC).withOpacity(0.1),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
 
       body: Column(
@@ -166,57 +178,63 @@ class ProblemListView extends GetView<ProblemController> {
 
               // LIST
               return ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-
+                padding: const EdgeInsets.all(16),
                 itemCount: controller.filteredProblems.length,
-
-                separatorBuilder: (_, __) =>
-                const SizedBox(height: 10),
-
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
-
-                  final problem =
-                  controller.filteredProblems[index];
-
+                  final problem = controller.filteredProblems[index];
                   return Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.circular(14),
-                    ),
-
-                    child: ListTile(
-                      contentPadding:
-                      const EdgeInsets.all(14),
-
-                      title: Text(
-                        problem.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      subtitle: Padding(
-                        padding:
-                        const EdgeInsets.only(top: 6),
-                        child: Text(
-                          'Rating: ${problem.rating} • Difficulty: ${problem.difficulty}',
-                        ),
-                      ),
-
-                      trailing: const Icon(
-                        Icons.chevron_right,
-                      ),
-
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
                       onTap: () {
-
-                        // TODO:
-                        // Navigate to problem details page
-
+                        // TODO: Navigate to problem details page
                       },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: _getDifficultyColor(problem.difficulty).withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  problem.difficulty.substring(0, 1),
+                                  style: TextStyle(
+                                    color: _getDifficultyColor(problem.difficulty),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    problem.title,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Rating: ${problem.rating}',
+                                    style: const TextStyle(color: Colors.grey, fontSize: 13),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                          ],
+                        ),
+                      ),
                     ),
                   );
                 },
@@ -225,14 +243,23 @@ class ProblemListView extends GetView<ProblemController> {
           ),
         ],
       ),
-
-      // =========================
-      // REFRESH BUTTON
-      // =========================
       floatingActionButton: FloatingActionButton(
         onPressed: controller.fetchProblems,
         child: const Icon(Icons.refresh),
       ),
     );
+  }
+
+  Color _getDifficultyColor(String difficulty) {
+    switch (difficulty.toLowerCase()) {
+      case 'easy':
+        return Colors.green;
+      case 'medium':
+        return Colors.orange;
+      case 'hard':
+        return Colors.red;
+      default:
+        return Colors.blue;
+    }
   }
 }
