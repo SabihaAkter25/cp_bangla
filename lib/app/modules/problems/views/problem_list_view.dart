@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../routes/app_pages.dart';
 import '../../topics/controllers/topic_controller.dart';
 import '../controllers/problem_controller.dart';
 
@@ -199,9 +200,10 @@ class ProblemListView extends GetView<ProblemController> {
                       color: Colors.transparent,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(16),
-                        onTap: () {
-                          // TODO: Navigate to problem details page
-                        },
+                      onTap: () => Get.toNamed(
+                        Routes.PROBLEM_DETAILS,
+                        arguments: problem,
+                      ),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
                           child: Row(
