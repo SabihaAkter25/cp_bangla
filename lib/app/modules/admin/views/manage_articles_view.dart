@@ -88,7 +88,10 @@ class ManageArticlesView extends GetView<ArticleController> {
     Get.bottomSheet(
       Container(
         padding: const EdgeInsets.all(16),
-        color: Colors.white,
+        decoration: const BoxDecoration(
+          color: Color(0xFF1E1E2C),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [
