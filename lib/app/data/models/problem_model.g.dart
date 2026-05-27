@@ -14,6 +14,7 @@ Problem _$ProblemFromJson(Map<String, dynamic> json) => Problem(
       difficulty: json['difficulty'] as String,
       rating: (json['rating'] as num).toInt(),
       topicId: json['topic_id'] as String?,
+      correctAnswer: json['correct_answer'] as String?,
     );
 
 Map<String, dynamic> _$ProblemToJson(Problem instance) => <String, dynamic>{
@@ -24,4 +25,5 @@ Map<String, dynamic> _$ProblemToJson(Problem instance) => <String, dynamic>{
       'difficulty': instance.difficulty,
       'rating': instance.rating,
       'topic_id': instance.topicId,
+      'correct_answer': instance.correctAnswer,
     };
