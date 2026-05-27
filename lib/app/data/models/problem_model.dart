@@ -12,6 +12,8 @@ class Problem {
   final int rating;
   @JsonKey(name: 'topic_id')
   final String? topicId;
+  @JsonKey(name: 'correct_answer')
+  final String? correctAnswer;
 
   Problem({
     required this.id,
@@ -21,6 +23,7 @@ class Problem {
     required this.difficulty,
     required this.rating,
     this.topicId,
+    this.correctAnswer,
   });
 
   factory Problem.fromJson(Map<String, dynamic> json) => _$ProblemFromJson(json);
