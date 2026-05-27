@@ -6,6 +6,7 @@ abstract class Routes {
   static const ARTICLES = _Paths.ARTICLES;
   static const ARTICLE_DETAILS = _Paths.ARTICLE_DETAILS;
   static const PROBLEMS = _Paths.PROBLEMS;
+  static const PROBLEM_DETAILS = _Paths.PROBLEM_DETAILS;
   static const TOPICS = _Paths.TOPICS;
   static const ADMIN = _Paths.ADMIN;
   static const MANAGE_ARTICLES = _Paths.MANAGE_ARTICLES;
@@ -19,6 +20,7 @@ abstract class _Paths {
   static const ARTICLES = '/articles';
   static const ARTICLE_DETAILS = '/articles/details';
   static const PROBLEMS = '/problems';
+  static const PROBLEM_DETAILS = '/problems/details';
   static const TOPICS = '/topics';
   static const ADMIN = '/admin';
   static const MANAGE_ARTICLES = '/admin/articles';
