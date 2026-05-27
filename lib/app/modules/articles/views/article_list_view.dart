@@ -62,24 +62,32 @@ class ArticleListView extends GetView<ArticleController> {
         if (topicController != null)
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Search articles...',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search articles...',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    onChanged: controller.searchArticles,
+                    filled: true,
+                    fillColor: const Color(0xFF1E1E2C),
                   ),
+                  onChanged: controller.searchArticles,
                 ),
-                const SizedBox(width: 8),
-                Obx(() => DropdownButton<String>(
-                      hint: const Text('Topic'),
+                const SizedBox(height: 8),
+                Obx(() => DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        filled: true,
+                        fillColor: const Color(0xFF1E1E2C),
+                      ),
                       value: controller.selectedTopicId.value.isEmpty ? null : controller.selectedTopicId.value,
                       items: [
-                        const DropdownMenuItem(value: null, child: Text('All')),
+                        const DropdownMenuItem(value: null, child: Text('All Topics')),
                         ...topicController.topics.map((topic) => DropdownMenuItem(
                               value: topic.id,
                               child: Text(topic.name),
@@ -103,54 +111,68 @@ class ArticleListView extends GetView<ArticleController> {
               itemCount: articles.length,
               itemBuilder: (context, index) {
                 final article = articles[index];
-                return Card(
+                return Container(
                   margin: const EdgeInsets.only(bottom: 16),
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                    onTap: () => Get.toNamed(
-                      Routes.ARTICLE_DETAILS,
-                      arguments: article,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF1E1E2C),
+                        const Color(0xFFBB86FC).withOpacity(0.1),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  article.title,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () => Get.toNamed(
+                        Routes.ARTICLE_DETAILS,
+                        arguments: article,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    article.title,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          if (article.excerpt != null)
-                            Text(
-                              article.excerpt!,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                                const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                              ],
                             ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              Icon(Icons.calendar_today, size: 14, color: Theme.of(context).primaryColor),
-                              const SizedBox(width: 4),
+                            const SizedBox(height: 8),
+                            if (article.excerpt != null)
                               Text(
-                                article.createdAt.toLocal().toString().split(' ')[0],
-                                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                article.excerpt!,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: Colors.white.withOpacity(0.7)),
                               ),
-                            ],
-                          ),
-                        ],
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Icon(Icons.calendar_today, size: 14, color: Theme.of(context).primaryColor),
+                                const SizedBox(width: 4),
+                                Text(
+                                  article.createdAt.toLocal().toString().split(' ')[0],
+                                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
