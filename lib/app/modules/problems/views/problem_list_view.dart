@@ -183,56 +183,70 @@ class ProblemListView extends GetView<ProblemController> {
                 separatorBuilder: (_, __) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
                   final problem = controller.filteredProblems[index];
-                  return Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: InkWell(
-                      onTap: () {
-                        // TODO: Navigate to problem details page
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: _getDifficultyColor(problem.difficulty).withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  problem.difficulty.substring(0, 1),
-                                  style: TextStyle(
-                                    color: _getDifficultyColor(problem.difficulty),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      gradient: LinearGradient(
+                        colors: [
+                          const Color(0xFF1E1E2C),
+                          const Color(0xFFBB86FC).withOpacity(0.1),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () {
+                          // TODO: Navigate to problem details page
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: _getDifficultyColor(problem.difficulty).withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    problem.difficulty.substring(0, 1),
+                                    style: TextStyle(
+                                      color: _getDifficultyColor(problem.difficulty),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    problem.title,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      problem.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Rating: ${problem.rating}',
-                                    style: const TextStyle(color: Colors.grey, fontSize: 13),
-                                  ),
-                                ],
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Rating: ${problem.rating}',
+                                      style: const TextStyle(color: Colors.grey, fontSize: 13),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                          ],
+                              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                            ],
+                          ),
                         ),
                       ),
                     ),
