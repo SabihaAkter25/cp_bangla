@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../articles/controllers/article_controller.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../../../routes/app_pages.dart';
+
+import '../controllers/profile_controller.dart';
+import '../../problems/controllers/problem_controller.dart';
 
 class ProfileView extends GetView<AuthController> {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final problemController = Get.find<ProblemController>();
+    final articleController = Get.find<ArticleController>();
     return Scaffold(
       body: Obx(() {
         final user = controller.rxUser.value;
@@ -90,9 +96,17 @@ class ProfileView extends GetView<AuthController> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
-                    _buildStatCard('Solved', '0', Icons.check_circle_outline),
+                    Obx(() => _buildStatCard(
+                          'Solved',
+                          problemController.solvedCount.toString(),
+                          Icons.check_circle_outline,
+                        )),
                     const SizedBox(width: 16),
-                    _buildStatCard('Articles', '0', Icons.article_outlined),
+                    Obx(() => _buildStatCard(
+                          'Saved',
+                          articleController.bookmarkedArticles.length.toString(),
+                          Icons.article_outlined,
+                        )),
                   ],
                 ),
               ),
