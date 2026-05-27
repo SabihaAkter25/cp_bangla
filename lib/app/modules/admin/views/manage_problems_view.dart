@@ -61,6 +61,7 @@ class ManageProblemsView extends GetView<ProblemController> {
     final statementController = TextEditingController();
     final difficultyController = TextEditingController();
     final ratingController = TextEditingController();
+    final answerController = TextEditingController();
     String? selectedTopicId;
     final topicController = Get.find<TopicController>();
 
@@ -79,6 +80,7 @@ class ManageProblemsView extends GetView<ProblemController> {
               TextField(controller: statementController, decoration: const InputDecoration(labelText: 'Statement'), maxLines: 3),
               TextField(controller: difficultyController, decoration: const InputDecoration(labelText: 'Difficulty (Easy/Medium/Hard)')),
               TextField(controller: ratingController, decoration: const InputDecoration(labelText: 'Rating (e.g. 800)'), keyboardType: TextInputType.number),
+              TextField(controller: answerController, decoration: const InputDecoration(labelText: 'Correct Answer')),
               const SizedBox(height: 10),
               Obx(() => DropdownButtonFormField<String>(
                     decoration: const InputDecoration(labelText: 'Topic'),
@@ -104,6 +106,7 @@ class ManageProblemsView extends GetView<ProblemController> {
                     difficultyController.text,
                     int.tryParse(ratingController.text) ?? 800,
                     selectedTopicId!,
+                    answerController.text,
                   );
                 },
                 child: const Text('Create'),
