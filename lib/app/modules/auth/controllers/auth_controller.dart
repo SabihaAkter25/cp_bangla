@@ -1,17 +1,22 @@
-import 'package:get/get.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../routes/app_pages.dart';
-import '../../../services/supabase_service.dart';
+  import 'package:get/get.dart';
+  import 'package:supabase_flutter/supabase_flutter.dart';
+  import '../../../routes/app_pages.dart';
+  import '../../../services/supabase_service.dart';
 
-class AuthController extends GetxController {
+  class AuthController extends GetxController {
   final SupabaseService _supabaseService = Get.find<SupabaseService>();
 
   final Rxn<User> rxUser = Rxn<User>();
   final isAdmin = false.obs;
   final isLoading = false.obs;
+  final isLoginMode = true.obs;
 
-  @override
-  void onInit() {
+    void toggleMode() {
+    isLoginMode.value = !isLoginMode.value;
+    }
+
+    @override
+    void onInit() {
     super.onInit();
 
     // Set initial user

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
 import '../modules/articles/views/article_detail_view.dart';
+import '../modules/problems/views/problem_detail_view.dart';
 import '../modules/admin/views/manage_articles_view.dart';
 import '../modules/admin/views/manage_problems_view.dart';
 import '../modules/admin/views/manage_topics_view.dart';
@@ -34,6 +35,10 @@ class AppPages {
     GetPage(
       name: _Paths.ARTICLE_DETAILS,
       page: () => const ArticleDetailView(),
+    ),
+    GetPage(
+      name: _Paths.PROBLEM_DETAILS,
+      page: () => const ProblemDetailView(),
     ),
     GetPage(
       name: _Paths.MANAGE_ARTICLES,
